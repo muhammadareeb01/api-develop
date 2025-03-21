@@ -17,7 +17,7 @@ const supabase = createClient(
   "https://yhyaslxqzwqptknmybqa.supabase.co",'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InloeWFzbHhxendxcHRrbm15YnFhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczOTM0MjQ3MSwiZXhwIjoyMDU0OTE4NDcxfQ.MrVagZRK4IM5XsefxgOYc93LMXxX81qe94mFETkuRNs');
 const resend = new Resend("re_epCkTUjB_8VatRdLBoWDFKDU16uqYkz7g");
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://joinprox.com",
   methods: ["POST"],
 }));
 app.use(express.json());
@@ -133,23 +133,4 @@ app.listen(port, () => {
 
 
 
-
-
-app.post("/api/test", async (req, res) => {
-  const { email } = req.body;
-
-  try {
-    const response = await resend.emails.send({
-      from: "Prox <joinprox.com>", // Must be a verified domain in Resend
-      to: email,
-      subject: "Test Email from Resend",
-      html: `<p>This is a test email sent from Resend in a local environment.</p>`,
-    });
-
-    res.json({ message: "Email sent successfully!", response });
-  } catch (error) {
-    console.error("Email sending error:", error);
-    res.status(500).json({ error: "Failed to send email", details: error });
-  }
-});
 
